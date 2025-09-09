@@ -10,7 +10,7 @@
 #' @import stats
 #' @author Subha Halder
 
-UniAMIN <- function(sample_data, significance_level){
+UniAMIN <- function(sample_data, significance_level, peak){
   set.seed(456)
   sample_data <- lapply(sample_data, function(x) x[!is.na(x)])
   num_samples = 100000
@@ -18,7 +18,7 @@ UniAMIN <- function(sample_data, significance_level){
   n <- sapply(sample_data, length)
   proportions <- n / sum(n)
   var_data <- sapply(1:num_datasets, function(j) var(sample_data[[j]]))
-  h <- ceiling(num_datasets/2)
+  h <- peak
   s <- num_datasets - 1
   b_sq <- numeric(s)
   for (p in 1:s) {
@@ -99,4 +99,5 @@ UniAMIN <- function(sample_data, significance_level){
   }
   return(paste("UniAMIN Critical value:", quantile_value, "; UniAMIN Test statistic:", Aunimin, "; Result:", result))
 }
+
 
